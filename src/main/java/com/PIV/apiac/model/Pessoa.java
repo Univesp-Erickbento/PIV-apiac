@@ -1,11 +1,15 @@
 package com.PIV.apiac.model;
 
 import com.PIV.apiac.domain.Categoria;
+import com.PIV.apiac.domain.Evento;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,6 +32,11 @@ public class Pessoa {
     @JoinColumn(name = "Categoria")
     private Categoria categoriaId;
     private LocalDate dataHoraXML;
+    @OneToMany(mappedBy = "pessoa")
+    private List<Evento> eventos = new ArrayList<>();
+    public List<Evento> getEventos() {
+        return eventos;
+    }
 
 
 }
