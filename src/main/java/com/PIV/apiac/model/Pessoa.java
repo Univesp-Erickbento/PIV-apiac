@@ -5,6 +5,7 @@ import com.PIV.apiac.domain.Evento;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
 @Builder
 
 @Entity()
-public class Pessoa {
+public class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pessoaId;
@@ -38,5 +39,16 @@ public class Pessoa {
         return eventos;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return pessoaId == pessoa.pessoaId;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(pessoaId);
+    }
 }
