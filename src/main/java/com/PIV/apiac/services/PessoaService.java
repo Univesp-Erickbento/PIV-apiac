@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class PessoaService {
 
-
+    @Autowired
     PessoaRepository pessoaRepository;
 
     public List<Pessoa> findAll(){
