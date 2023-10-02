@@ -1,4 +1,4 @@
-package com.PIV.apiac;
+package com.PIV.apiac.controllers;
 
 import com.PIV.apiac.model.Pessoa;
 import com.PIV.apiac.repositories.PessoaRepository;
