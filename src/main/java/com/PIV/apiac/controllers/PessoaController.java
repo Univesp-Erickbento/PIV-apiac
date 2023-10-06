@@ -1,7 +1,6 @@
-package com.PIV.apiac;
+package com.PIV.apiac.controllers;
 
 import com.PIV.apiac.model.Pessoa;
-import com.PIV.apiac.repositories.PessoaRepository;
 import com.PIV.apiac.services.PessoaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -18,7 +17,7 @@ import java.util.List;
 public class PessoaController {
     @Autowired
     PessoaService pessoaService;
-
+    @GetMapping
     public ResponseEntity<List<Pessoa>> findAll(){
 
         List<Pessoa> list = new ArrayList<>();

@@ -2,6 +2,7 @@ package com.PIV.apiac.model;
 
 import com.PIV.apiac.domain.Categoria;
 import com.PIV.apiac.domain.Evento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,6 +36,7 @@ public class Pessoa implements Serializable {
     private Categoria categoria;
     private LocalDateTime dataHoraXML;
     @OneToMany(mappedBy = "pessoa")
+    @JsonIgnore
     private List<Evento> eventos = new ArrayList<>();
     public List<Evento> getEventos() {
         return eventos;
