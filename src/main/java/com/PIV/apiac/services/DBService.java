@@ -1,4 +1,4 @@
-package com.PIV.apiac.config;
+package com.PIV.apiac.services;
 
 import com.PIV.apiac.domain.Categoria;
 import com.PIV.apiac.domain.Evento;
@@ -8,17 +8,15 @@ import com.PIV.apiac.repositories.EventoRepository;
 import com.PIV.apiac.repositories.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-@Configuration
-@Profile("test")
-public class TestConfig implements CommandLineRunner {
+@Service
+public class DBService implements CommandLineRunner {
     @Autowired
     private PessoaRepository pessoaRepository;
     @Autowired
