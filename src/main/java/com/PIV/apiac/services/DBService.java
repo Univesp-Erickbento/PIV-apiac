@@ -16,15 +16,15 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @Service
-public class DBService implements CommandLineRunner {
+public class DBService  {
     @Autowired
     private PessoaRepository pessoaRepository;
     @Autowired
     private CategoriaRepository categoriaRepository;
     @Autowired
     private EventoRepository eventoRepository;
-    @Override
-    public void run(String... args) throws Exception {
+
+    public void instanciaDB() {
         Categoria cat;
         cat = new Categoria(1L, "Morador", Duration.ofHours(365 * 24L));
         Categoria cat2 = new Categoria(2L, "Prestador", Duration.ofHours(24L));
