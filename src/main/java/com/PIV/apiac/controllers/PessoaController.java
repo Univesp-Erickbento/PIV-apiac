@@ -22,9 +22,13 @@ public class PessoaController {
 
         List<Pessoa> list = new ArrayList<>();
         list = pessoaService.findAll();
-
         return ResponseEntity.ok().body(list);
+    }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Pessoa> findById(@PathVariable Long id){
+        Pessoa obj =pessoaService.finfById(id);
+        return ResponseEntity.ok().body(obj);
     }
 
 }
