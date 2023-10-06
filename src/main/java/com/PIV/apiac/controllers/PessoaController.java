@@ -1,5 +1,6 @@
 package com.PIV.apiac.controllers;
 
+import com.PIV.apiac.domain.dtos.PessoaDTO;
 import com.PIV.apiac.model.Pessoa;
 import com.PIV.apiac.services.PessoaService;
 import jakarta.validation.Valid;
@@ -26,9 +27,9 @@ public class PessoaController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Pessoa> findById(@PathVariable Long id){
+    public ResponseEntity<PessoaDTO> findById(@PathVariable Long id){
         Pessoa obj =pessoaService.finfById(id);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(new PessoaDTO(obj));
     }
 
 }
