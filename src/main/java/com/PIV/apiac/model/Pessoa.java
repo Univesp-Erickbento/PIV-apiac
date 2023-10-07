@@ -2,6 +2,7 @@ package com.PIV.apiac.model;
 
 import com.PIV.apiac.domain.Categoria;
 import com.PIV.apiac.domain.Evento;
+import com.PIV.apiac.domain.dtos.PessoaDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -50,6 +51,18 @@ public class Pessoa implements Serializable {
         return pessoaId == pessoa.pessoaId;
     }
 
+    public Pessoa(PessoaDTO obj) {
+        this.pessoaId = obj.getPessoaId();
+        this.nome = obj.getNome();
+        this.email = obj.getEmail();
+        this.rg = obj.getRg();
+        this.cpf = obj.getCpf();
+        this.iFacial = obj.getIFacial();
+        this.foto = obj.getFoto();
+        this.categoria = obj.getCategoria();
+        this.dataHoraXML = obj.getDataHoraXML();
+        this.eventos = obj.getEventos();
+    }
     @Override
     public int hashCode() {
         return Objects.hash(pessoaId);
