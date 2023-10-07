@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/pessoas")
@@ -19,11 +20,12 @@ public class PessoaController {
     @Autowired
     PessoaService pessoaService;
     @GetMapping
-    public ResponseEntity<List<Pessoa>> findAll(){
+    public ResponseEntity<List<PessoaDTO>> findAll(){
 
         List<Pessoa> list = new ArrayList<>();
         list = pessoaService.findAll();
-        return ResponseEntity.ok().body(list);
+        List<PessoaDTO> listDTO = list.stream().map(obj -> new PessoaDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
     }
 
     @GetMapping(value = "/{id}")
