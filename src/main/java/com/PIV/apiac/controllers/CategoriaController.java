@@ -25,7 +25,7 @@ public class CategoriaController {
     }
     @GetMapping(value = "/{id}")
     public ResponseEntity<Categoria> findById(@PathVariable Long id){
-        Categoria obj =categoriaService.finfById(id);
+        Categoria obj =categoriaService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 }
