@@ -1,7 +1,9 @@
 package com.PIV.apiac.controllers;
 
+import com.PIV.apiac.domain.Categoria;
 import com.PIV.apiac.domain.dtos.PessoaDTO;
 import com.PIV.apiac.model.Pessoa;
+import com.PIV.apiac.services.CategoriaService;
 import com.PIV.apiac.services.PessoaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +24,9 @@ import java.util.stream.Collectors;
 public class PessoaController {
     @Autowired
     PessoaService pessoaService;
+
+    @Autowired
+    CategoriaService categoriaService;
     @GetMapping
     public ResponseEntity<List<PessoaDTO>> findAll(){
 
@@ -36,11 +42,18 @@ public class PessoaController {
         return ResponseEntity.ok().body(new PessoaDTO(obj));
     }
     @PostMapping
-    public ResponseEntity<PessoaDTO> create(@RequestBody PessoaDTO objDTO){
-    Pessoa newObj = pessoaService.create(objDTO);
+    public ResponseEntity<PessoaDTO> create(@RequestBody PessoaDTO objDTO) {
+        Pessoa newObj = pessoaService.create(objDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getPessoaId()).toUri();
-    return ResponseEntity.created(uri).build();
-
+        return ResponseEntity.created(uri).build();
+    }
+    @PostMapping(value = "/addpessoa")
+            public ResponseEntity<PessoaDTO> addPessoa(@RequestParam("nome") String nome){
+        Categoria categoria = categoriaService.findById(1L);
+        Pessoa novapessoa = new Pessoa(null, nome, "er@yahoo", "123444", "213", null, null, categoria, LocalDateTime.now(), null);
+        PessoaDTO novaPessoaDTO = new PessoaDTO(novapessoa);
+        pessoaService.create(novaPessoaDTO);
+        return ResponseEntity.ok().body(novaPessoaDTO);
 
     }
 

@@ -20,7 +20,7 @@ public class CategoriaService {
         list = categoriaRepository.findAll();
         return list;
     }
-    public Categoria finfById(Long id) {
+    public Categoria findById(Long id) {
         Optional<Categoria> obj = categoriaRepository.findById(id);
         return obj.get();
     }
