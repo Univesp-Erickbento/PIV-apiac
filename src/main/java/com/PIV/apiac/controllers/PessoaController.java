@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class PessoaController {
     public ResponseEntity<List<PessoaDTO>> findAll(){
 
         List<Pessoa> list = new ArrayList<>();
+
         list = pessoaService.findAll();
         List<PessoaDTO> listDTO = list.stream().map(obj -> new PessoaDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
@@ -48,12 +51,27 @@ public class PessoaController {
         return ResponseEntity.created(uri).build();
     }
     @PostMapping(value = "/addpessoa")
-            public ResponseEntity<PessoaDTO> addPessoa(@RequestParam("nome") String nome){
+            public ResponseEntity<String> addPessoa(@RequestParam("nome") String nome,
+                                                       @RequestParam("email") String email,
+                                                       @RequestParam("rg") String rg,
+                                                       @RequestParam("cpf") String cpf,
+                                                       @RequestParam("ifacial") MultipartFile iFacial,
+                                                       @RequestParam("foto") MultipartFile foto){
         Categoria categoria = categoriaService.findById(1L);
-        Pessoa novapessoa = new Pessoa(null, nome, "er@yahoo", "123444", "213", null, null, categoria, LocalDateTime.now(), null);
-        PessoaDTO novaPessoaDTO = new PessoaDTO(novapessoa);
-        pessoaService.create(novaPessoaDTO);
-        return ResponseEntity.ok().body(novaPessoaDTO);
+
+        try {
+            byte[] bytesIFacial = iFacial.getBytes();
+            byte[] bytesFoto = foto.getBytes();
+
+            Pessoa novapessoa = new Pessoa(null, nome, email, rg, cpf, bytesIFacial, bytesFoto, categoria, LocalDateTime.now(), null);
+            PessoaDTO novaPessoaDTO = new PessoaDTO(novapessoa);
+            pessoaService.create(novaPessoaDTO);
+            return ResponseEntity.ok().body("Salvo");
+
+        }
+        catch(IOException e){
+            return ResponseEntity.status(500).body("Falha ao processar o arquivo.");
+        }
 
     }
 

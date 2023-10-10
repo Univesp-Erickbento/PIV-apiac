@@ -6,6 +6,7 @@ import com.PIV.apiac.domain.dtos.PessoaDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -30,7 +31,9 @@ public class Pessoa implements Serializable {
     private String email;
     private String rg;
     private String cpf;
+    @Lob
     private byte[] iFacial;
+    @Lob
     private byte[] foto;
     @ManyToOne
     @JoinColumn(name = "categoria_id")
