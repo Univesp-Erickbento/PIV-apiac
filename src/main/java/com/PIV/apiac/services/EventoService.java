@@ -18,9 +18,12 @@ public class EventoService {
         List<Evento> list = eventoRepository.findAll();
         return list;
     }
-
     public Evento finfById(Long id) {
         Optional<Evento> obj = eventoRepository.findById(id);
         return obj.get();
+    }
+    public Evento create(Evento evento){
+        evento.setEventoId(null);
+        return eventoRepository.save(evento);
     }
 }
