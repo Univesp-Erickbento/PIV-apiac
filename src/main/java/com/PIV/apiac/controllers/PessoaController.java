@@ -52,13 +52,17 @@ public class PessoaController {
     }
     @PostMapping(value = "/addpessoa")
             public ResponseEntity<String> addPessoa(@RequestParam("nome") String nome,
-                                                       @RequestParam("email") String email,
-                                                       @RequestParam("rg") String rg,
-                                                       @RequestParam("cpf") String cpf,
-                                                       @RequestParam("ifacial") MultipartFile iFacial,
-                                                       @RequestParam("foto") MultipartFile foto){
-        Categoria categoria = categoriaService.findById(1L);
-
+                                                    @RequestParam("email") String email,
+                                                    @RequestParam("rg") String rg,
+                                                    @RequestParam("cpf") String cpf,
+                                                    @RequestParam("ifacial") MultipartFile iFacial,
+                                                    @RequestParam("foto") MultipartFile foto,
+                                                    @RequestParam("categoria") String nomeCategoria){
+        //Categoria categoria = categoriaService.findById(1L);
+        Categoria categoria = categoriaService.findByNomeCategoria(nomeCategoria);
+        if (categoria == null){
+            return ResponseEntity.status(500).body("Categoria Inesistente");
+        }
         try {
             byte[] bytesIFacial = iFacial.getBytes();
             byte[] bytesFoto = foto.getBytes();

@@ -24,4 +24,8 @@ public class CategoriaService {
         Optional<Categoria> obj = categoriaRepository.findById(id);
         return obj.get();
     }
+    public Categoria findByNomeCategoria(String nomeCategoria){
+        Categoria categoria = categoriaRepository.getByNomeCategoria(nomeCategoria);
+        return categoria;
+    }
 }
